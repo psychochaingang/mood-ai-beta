@@ -6,29 +6,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: kivy/buildozer:latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
     
-    - name: Install deps
-      run: |
-        sudo apt update
-        sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev openjdk-11-jdk openjdk-17-jdk
-    
-    - name: Install buildozer
-      run: pip install --user buildozer cython
-    
-    - name: Build APK
+    - name: Build APK inside Kivy Docker container
       run: |
         cd mood_ai_app_project
-        export PATH=$PATH:~/.local/bin
-        
-        # Use Java 11 for SDK tools, Java 17 for gradle
-        export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-        export PATH=$JAVA_HOME/bin:$PATH
-        
         buildozer android debug 2>&1
     
     - name: Upload APK
