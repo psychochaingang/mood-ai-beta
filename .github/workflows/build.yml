@@ -10,28 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
-    
-    - name: Set up Java 17
-      uses: actions/setup-java@v4
+    - uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
+    - uses: android-actions/setup-android@v3
     
-    - name: Install Android SDK
-      uses: android-actions/setup-android@v3
-    
-    - name: Install system deps
+    - name: Install deps
       run: sudo apt update && sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev
-    
-    - name: Install Android build-tools
-      run: |
-        yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34" 2>&1 || true
-        ls $ANDROID_SDK_ROOT/build-tools/34.0.0/ 2>/dev/null || echo "build-tools not found at expected path"
     
     - name: Install buildozer
       run: pip install --user buildozer cython
@@ -39,8 +28,17 @@ jobs:
     - name: Build APK
       run: |
         cd mood_ai_app_project
-        export PATH=$PATH:~/.local/bin:$ANDROID_SDK_ROOT:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/build-tools/34.0.0
-        export ANDROID_HOME=$ANDROID_SDK_ROOT
+        export PATH=$PATH:~/.local/bin
+        export ANDROID_HOME=/usr/local/lib/android/sdk
+        export ANDROID_SDK_ROOT=/usr/local/lib/android/sdk
+        # Create symlink so buildozer finds the system SDK tools
+        mkdir -p ~/.buildozer/android/platform/android-sdk
+        ln -sf /usr/local/lib/android/sdk/build-tools ~/.buildozer/android/platform/android-sdk/build-tools 2>/dev/null || true
+        ln -sf /usr/local/lib/android/sdk/platforms ~/.buildozer/android/platform/android-sdk/platforms 2>/dev/null || true
+        ln -sf /usr/local/lib/android/sdk/platform-tools ~/.buildozer/android/platform/android-sdk/platform-tools 2>/dev/null || true
+        ln -sf /usr/local/lib/android/sdk/tools ~/.buildozer/android/platform/android-sdk/tools 2>/dev/null || true
+        # Verify aidl exists
+        which aidl 2>/dev/null || find /usr/local/lib/android/sdk -name "aidl" 2>/dev/null | head -3
         buildozer android debug 2>&1
     
     - name: Upload APK
