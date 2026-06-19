@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood AI - Beta Download</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a0a2e 50%, #0a1a2e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        .emoji { font-size: 64px; margin-bottom: 20px; }
+        h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px;
+             background: linear-gradient(135deg, #ffd700, #ff6b6b);
+             -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: #8888aa; margin-bottom: 30px; font-size: 16px; }
+        .badge {
+            display: inline-block;
+            background: rgba(255,215,0,0.15);
+            color: #ffd700;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+        .features { text-align: left; margin: 25px 0; }
+        .feature { padding: 8px 0; color: #aaaacc; font-size: 14px; }
+        .feature:before { content: "✓ "; color: #50fa7b; font-weight: bold; }
+        .btn {
+            display: inline-block;
+            padding: 16px 48px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            margin: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn-primary {
+            background: linear-gradient(135deg, #ffd700, #ff6b6b);
+            color: #000;
+            box-shadow: 0 8px 32px rgba(255,215,0,0.3);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .btn-disabled {
+            background: rgba(255,255,255,0.05);
+            color: #666;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .platforms { margin: 30px 0; }
+        .platform { display: inline-block; margin: 0 15px; font-size: 14px; color: #6666aa; }
+        .note { color: #666688; font-size: 12px; margin-top: 25px; line-height: 1.6; }
+        .countdown { color: #ffd700; font-size: 14px; margin-top: 15px; }
+        hr { border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 25px 0; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="emoji">🎭</div>
+        <h1>Mood AI</h1>
+        <p class="subtitle">Your AI-powered mood analyzer with real-time jokes & roasts</p>
+        <div class="badge">🎬 EARLY BETA</div>
+        
+        <div class="features">
+            <div class="feature">Real-time AI mood detection</div>
+            <div class="feature">Personalized jokes & roasts (Kid/Adult mode)</div>
+            <div class="feature">Voice responses (Boy/Girl voices)</div>
+            <div class="feature">Daily mood tracking & reports</div>
+            <div class="feature">Facial calibration for accuracy</div>
+            <div class="feature">5 free trials - $2 full unlock</div>
+        </div>
+
+        <div class="platforms">
+            <span class="platform">🖥️ Windows Desktop</span>
+            <span class="platform">📱 Android</span>
+        </div>
+
+        <a href="MoodAI_Beta.zip" class="btn btn-primary" download>⬇ Download Beta</a>
+        <p style="color:#888;font-size:13px;margin-top:8px;">Windows Desktop • 6.7 MB</p>
+
+        <hr>
+        <p class="subtitle" style="margin-bottom:15px;">📱 Android APK</p>
+        <div class="btn btn-disabled">BUILDING... (1-2 hrs)</div>
+        <p class="countdown">⚙️ APK build in progress - check back soon</p>
+
+        <div class="note">
+            <b>📦 Requirements:</b><br>
+            Python 3.8+ • Webcam • Works on Windows/Mac/Linux<br>
+            Install: <code style="background:rgba(255,255,255,0.05);padding:2px 6px;border-radius:4px;">pip install opencv-python mediapipe numpy edge-tts sounddevice soundfile</code><br>
+            Then run: <code style="background:rgba(255,255,255,0.05);padding:2px 6px;border-radius:4px;">python mood_ai_app.py</code>
+        </div>
+    </div>
+</body>
+</html>

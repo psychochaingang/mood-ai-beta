@@ -1,0 +1,57 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # allows manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev python3-pip python3-venv
+    
+    - name: Install buildozer
+      run: |
+        pip install --user buildozer cython
+    
+    - name: Build APK
+      run: |
+        cd mood_ai_app_project
+        export PATH=$PATH:~/.local/bin
+        buildozer android debug
+    
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: MoodAI-APK
+        path: mood_ai_app_project/bin/*.apk
+    
+    - name: Upload to release
+      if: github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: mood_ai_app_project/bin/*.apk
+        tag_name: beta-${{ github.run_number }}
+        name: Mood AI Beta Build #${{ github.run_number }}
+        body: |
+          ## Mood AI Beta APK
+          Auto-built from latest source.
+          
+          ### Download
+          - Scroll down to Assets section
+          - Download the .apk file
+          - Enable "Install from unknown sources" on your phone
+          - Tap to install
