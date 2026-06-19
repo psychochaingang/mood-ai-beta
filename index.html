@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood AI - Beta Download</title>
+    <title>VibeCheck by GlitchAura Studios - Beta Download</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -27,9 +27,10 @@
             text-align: center;
         }
         .emoji { font-size: 64px; margin-bottom: 20px; }
-        h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px;
+        h1 { font-size: 32px; font-weight: 700; margin-bottom: 4px;
              background: linear-gradient(135deg, #ffd700, #ff6b6b);
              -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .studio { color: #6666aa; font-size: 13px; margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; }
         .subtitle { color: #8888aa; margin-bottom: 30px; font-size: 16px; }
         .badge {
             display: inline-block;
@@ -44,7 +45,7 @@
         }
         .features { text-align: left; margin: 25px 0; }
         .feature { padding: 8px 0; color: #aaaacc; font-size: 14px; }
-        .feature:before { content: "✓ "; color: #50fa7b; font-weight: bold; }
+        .feature:before { content: "\2713 "; color: #50fa7b; font-weight: bold; }
         .btn {
             display: inline-block;
             padding: 16px 48px;
@@ -76,17 +77,20 @@
         }
         .platforms { margin: 30px 0; }
         .platform { display: inline-block; margin: 0 15px; font-size: 14px; color: #6666aa; }
+        .links { margin-top: 25px; }
+        .links a { color: #6666aa; font-size: 13px; text-decoration: none; margin: 0 12px; }
+        .links a:hover { color: #ffd700; }
         .note { color: #666688; font-size: 12px; margin-top: 25px; line-height: 1.6; }
-        .countdown { color: #ffd700; font-size: 14px; margin-top: 15px; }
         hr { border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 25px 0; }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="emoji">🎭</div>
-        <h1>Mood AI</h1>
-        <p class="subtitle">Your AI-powered mood analyzer with real-time jokes & roasts</p>
-        <div class="badge">🎬 EARLY BETA</div>
+        <h1>VibeCheck</h1>
+        <div class="studio">by GlitchAura Studios</div>
+        <p class="subtitle">Your AI mood analyzer with real-time roasts & jokes</p>
+        <div class="badge">EARLY BETA</div>
         
         <div class="features">
             <div class="feature">Real-time AI mood detection</div>
@@ -98,23 +102,29 @@
         </div>
 
         <div class="platforms">
-            <span class="platform">🖥️ Windows Desktop</span>
-            <span class="platform">📱 Android</span>
+            <span class="platform">Windows Desktop</span>
+            <span class="platform">Android</span>
         </div>
 
-        <a href="MoodAI_Beta.zip" class="btn btn-primary" download>⬇ Download Beta</a>
-        <p style="color:#888;font-size:13px;margin-top:8px;">Windows Desktop • 6.7 MB</p>
+        <a href="VibeCheck_Beta.zip" class="btn btn-primary" download>Download Beta</a>
+        <p style="color:#888;font-size:13px;margin-top:8px;">Windows Desktop - 6.7 MB</p>
 
         <hr>
-        <p class="subtitle" style="margin-bottom:15px;">📱 Android APK</p>
-        <div class="btn btn-disabled">BUILDING... (1-2 hrs)</div>
-        <p class="countdown">⚙️ APK build in progress - check back soon</p>
+
+        <p class="subtitle" style="margin-bottom:15px;">Android APK</p>
+        <a href="https://github.com/psychochaingang/mood-ai-beta/releases" class="btn btn-secondary" target="_blank">Download APK</a>
+        <p style="color:#888;font-size:13px;margin-top:8px;">Auto-builds on push via GitHub Actions</p>
+
+        <div class="links">
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="https://github.com/psychochaingang/mood-ai-beta">GitHub</a>
+        </div>
 
         <div class="note">
-            <b>📦 Requirements:</b><br>
-            Python 3.8+ • Webcam • Works on Windows/Mac/Linux<br>
-            Install: <code style="background:rgba(255,255,255,0.05);padding:2px 6px;border-radius:4px;">pip install opencv-python mediapipe numpy edge-tts sounddevice soundfile</code><br>
-            Then run: <code style="background:rgba(255,255,255,0.05);padding:2px 6px;border-radius:4px;">python mood_ai_app.py</code>
+            <b>Requirements:</b> Python 3.8+ - Webcam<br>
+            <code style="background:rgba(255,255,255,0.05);padding:2px 6px;border-radius:4px;font-size:11px;">pip install opencv-python mediapipe numpy edge-tts sounddevice soundfile</code><br>
+            <code style="background:rgba(255,255,255,0.05);padding:2px 6px;border-radius:4px;font-size:11px;">python VibeCheck.py</code>
         </div>
     </div>
 </body>
