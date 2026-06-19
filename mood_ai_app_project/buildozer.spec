@@ -16,6 +16,13 @@ android.ndk = 28c
 android.gradle = 1
 android.enable_androidx = 1
 android.archs = arm64-v8a
+android.presplash_color = #0a0a1a
+android.add_src = 
+android.add_jars = 
+android.wakelock = 0
+android.enable_minification = 1
+android.enable_proguard = 1
+android.split_permissions = 1
 
 [buildozer]
 log_level = 1
