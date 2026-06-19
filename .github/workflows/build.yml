@@ -1,8 +1,6 @@
 name: Build VibeCheck APK
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -13,14 +11,11 @@ jobs:
     - uses: actions/setup-python@v5
       with:
         python-version: '3.12'
-    - uses: actions/setup-java@v4
-      with:
-        distribution: 'temurin'
-        java-version: '11'
-    - uses: android-actions/setup-android@v3
     
     - name: Install deps
-      run: sudo apt update && sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev
+      run: |
+        sudo apt update
+        sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev openjdk-11-jdk openjdk-17-jdk
     
     - name: Install buildozer
       run: pip install --user buildozer cython
@@ -29,30 +24,16 @@ jobs:
       run: |
         cd mood_ai_app_project
         export PATH=$PATH:~/.local/bin
-        export ANDROID_HOME=/usr/local/lib/android/sdk
-        export ANDROID_SDK_ROOT=/usr/local/lib/android/sdk
-        # Create symlink so buildozer finds the system SDK tools
-        mkdir -p ~/.buildozer/android/platform/android-sdk
-        ln -sf /usr/local/lib/android/sdk/build-tools ~/.buildozer/android/platform/android-sdk/build-tools 2>/dev/null || true
-        ln -sf /usr/local/lib/android/sdk/platforms ~/.buildozer/android/platform/android-sdk/platforms 2>/dev/null || true
-        ln -sf /usr/local/lib/android/sdk/platform-tools ~/.buildozer/android/platform/android-sdk/platform-tools 2>/dev/null || true
-        ln -sf /usr/local/lib/android/sdk/tools ~/.buildozer/android/platform/android-sdk/tools 2>/dev/null || true
-        # Verify aidl exists
-        which aidl 2>/dev/null || find /usr/local/lib/android/sdk -name "aidl" 2>/dev/null | head -3
+        
+        # Use Java 11 for SDK tools, Java 17 for gradle
+        export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+        export PATH=$JAVA_HOME/bin:$PATH
+        
         buildozer android debug 2>&1
     
     - name: Upload APK
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: VibeCheck-APK
         path: mood_ai_app_project/bin/*.apk
-    
-    - name: Create Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: mood_ai_app_project/bin/*.apk
-        tag_name: beta-${{ github.run_number }}
-        name: VibeCheck Beta #${{ github.run_number }}
-        body: |
-          ## VibeCheck Beta Build #${{ github.run_number }}
-          Download the .apk below, install on your Android device.
