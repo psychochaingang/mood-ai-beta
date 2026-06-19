@@ -23,6 +23,7 @@ android.wakelock = 0
 android.enable_minification = 1
 android.enable_proguard = 1
 android.split_permissions = 1
+android.sdk_path = /usr/local/lib/android/sdk
 
 [buildozer]
 log_level = 1
