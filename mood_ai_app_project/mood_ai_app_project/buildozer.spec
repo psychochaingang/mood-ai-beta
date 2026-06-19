@@ -1,7 +1,7 @@
 [app]
-title = VibeCheck
+title = Mood AI
 package.name = moodai
-package.domain = com.glitchaura.vibecheck
+package.domain = com.moodai.app
 source.dir = .
 source.include_exts = py,png,jpg,json,task,tflite
 version = 1.0.0
@@ -12,10 +12,11 @@ android.permissions = CAMERA,INTERNET,RECORD_AUDIO
 android.api = 34
 android.minapi = 26
 android.targetapi = 34
-android.ndk = 28c
+android.ndk = 27b
+android.sdk = 34
 android.gradle = 1
 android.enable_androidx = 1
-android.archs = arm64-v8a
+android.arch = arm64-v8a
 
 [buildozer]
 log_level = 1
