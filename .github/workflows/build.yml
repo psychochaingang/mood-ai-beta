@@ -22,28 +22,20 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
     
+    - name: Install Android SDK
+      uses: android-actions/setup-android@v3
+    
     - name: Install system deps
       run: sudo apt update && sudo apt install -y git zip unzip autoconf libtool pkg-config zlib1g-dev libncurses5-dev cmake libffi-dev libssl-dev
     
     - name: Install buildozer
       run: pip install --user buildozer cython
     
-    - name: Setup Android SDK
-      run: |
-        export PATH=$PATH:~/.local/bin
-        # Buildozer will auto-download SDK, but we need to accept licenses
-        yes | ~/.local/bin/buildozer android populate_sdk 2>&1 || true
-        # Accept all Android SDK licenses
-        if [ -d ~/.buildozer/android/platform/android-sdk ]; then
-          yes | ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager --licenses 2>&1 || true
-          yes | ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses 2>&1 || true
-        fi
-    
     - name: Build APK
       run: |
         cd mood_ai_app_project
-        export PATH=$PATH:~/.local/bin
-        # Force build even if SDK setup had issues
+        export PATH=$PATH:~/.local/bin:$ANDROID_SDK_ROOT:$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/build-tools/34.0.0
+        export ANDROID_HOME=$ANDROID_SDK_ROOT
         buildozer android debug 2>&1
     
     - name: Upload APK
@@ -60,5 +52,4 @@ jobs:
         name: VibeCheck Beta #${{ github.run_number }}
         body: |
           ## VibeCheck Beta Build #${{ github.run_number }}
-          Auto-built from latest source.
           Download the .apk below, install on your Android device.
